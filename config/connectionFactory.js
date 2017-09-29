@@ -6,7 +6,7 @@ module.exports = function(uri){
 
 	
 
-	if(process.env.NODE_ENV == 'prodution'){
+	if(process.env.NODE_ENV == 'production'){
 		var urlConect = process.env.MONGODB_URI;
 
 		var promise = mongoose.connect(urlConect, {
