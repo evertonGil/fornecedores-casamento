@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <title>Lista de Fornecedores</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    
+</head>
+<body>
+
+<div class="container">
+	<div id="mensagemView"></div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<h1 class="display-4">Cadastro de novo fornecedores</h1>
+		</div>
+	</div>
+
+	<div class="row">
+		
+		<div class="jumbotron col-md-12">
+
+			<h2 class="">Incluir novo Fornecedor</h2>
+		    <div id="mensagemView"></div>
+		    <div id="fornecedorView" class="form form-row" >
+		    </div>
+
+		    <div class="cardapios_form">
+			    <h4 class="col-md-12">Cardapios:</h4>
+			    <table class="table table-bordered">
+				    <thead class="thead-default ">
+				    	<tr>
+				    		<th class="col-nome  bg-secondary">Nome</th>
+				    		<th class="col-valorPessoa  bg-secondary">Valor por pessoa</th>
+				    		<th class="col-aluguel  bg-secondary">Aluguel</th>
+				    		<th class="col-dj  bg-secondary">DJ</th>
+				    		<th class="col-decoracao  bg-secondary">Decoração</th>
+				    		<th class="col-inclui bg-secondary">		
+								
+				    		</th>
+				    	</tr>
+				    </thead>
+					<tbody id="cardapiosView" class="col-md-12">
+						
+					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="5"></td>
+							<td class="col-inclui">		
+								<a href="#" class="btn-inclui-cardapio text-success" onclick="cadastroController.adicionaCardapio(event)"><i class="fa fa-plus-circle"></i></a>
+				    		</td>
+				    	</tr>
+					</tfoot>
+				</table>
+			</div>
+		<button class="btn btn-primary" form="fornecedor" type="submit" onclick="cadastroController.adiciona(event)">Incluir</button>
+		</div>
+	</div>
+</div>
+
+
+
+<script src="js/app/models/Fornecedor.js" ></script>
+<script src="js/app/models/Fornecedores.js" ></script>
+<script src="js/app/models/Cardapio.js" ></script>
+<script src="js/app/models/Cardapios.js" ></script>
+
+<script src="js/app/models/Mensagem.js" ></script>
+<script src="js/app/controllers/FormularioFornecedoresController.js" ></script>
+<script src="js/app/views/View.js" ></script>
+<script src="js/app/views/MensagemView.js" ></script>
+<script src="js/app/views/FormCardapioView.js" ></script>
+<script src="js/app/views/FormFornecedorView.js" ></script>
+<script src="js/app/services/HttpService.js" ></script>
+<script src="js/app/services/ProxyFactory.js" ></script>
+<script src="js/app/services/FornecedoresService.js" ></script>
+<script src="js/app/helpers/Bind.js" ></script>
+
+
+<script>
+	let cadastroController = new FormularioFornecedoresController();
+</script>
+
+</body>
+</html>

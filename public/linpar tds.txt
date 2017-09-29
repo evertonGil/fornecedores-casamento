@@ -1,0 +1,4 @@
+var tds = document.querySelectorAll("#listaFornecedoresView td tr td");
+tds.forEach(function(n, index){
+	n.innerHTML = "d";
+});

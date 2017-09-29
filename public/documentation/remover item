@@ -1,0 +1,3 @@
+ db.evertonTeste.remove({ 
+ "_id" : ObjectId("59c57821b29532295f23d929"
+ )})

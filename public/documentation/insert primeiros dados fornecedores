@@ -1,0 +1,50 @@
+db.fornecedores.insertMany([  
+      {  
+         "nome":"Zoologico fest",
+         "qtdMax":700,
+         "local":"Saude - sp",
+         "tipo":"Buffet",
+         "observacoes":"",
+         "cardapios":[  
+               {  
+                  "nome":"Cardapio1",
+                  "valorPorPessoa":100,
+                  "aluguel":0,
+                  "dj":2000,
+                  "decoracao":4300
+               }
+            ]
+      },
+      {  
+         "nome":"Espaço perfeito",
+         "qtdMax":400,
+         "local":"Mooca - sp",
+         "tipo":"Buffet",
+         "observacoes":"",
+         "cardapios":[  
+               {  
+                  "nome":"Cardápio 1",
+                  "valorPorPessoa":89.9,
+                  "aluguel":0,
+                  "dj":2000,
+                  "decoracao":4300
+               }
+            ]
+      },
+      {  
+         "nome":"Canto Verde",
+         "qtdMax":800,
+         "local":"São Mateus",
+         "tipo":"Buffet",
+         "observacoes":"Teste...",
+         "cardapios":[  
+               {  
+                  "nome":"Cardápio 1",
+                  "valorPorPessoa":89.9,
+                  "aluguel":0,
+                  "dj":2000,
+                  "decoracao":4300
+               }
+            ]
+      }
+   ])
