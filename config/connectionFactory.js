@@ -8,15 +8,19 @@ module.exports = function(uri){
 
 	if(process.env.NODE_ENV == 'production'){
 		var urlConect = process.env.MONGODB_URI;
+		
+		console.log(urlConect);
 
 		var promise = mongoose.connect(urlConect, {
 		  useMongoClient: true,
 		});
 
 		promise.then(function(){
+			console.log("conectou no mongodb");
 			logger.log('info', "conectou no mongodb");
 		},
 		function(e){
+			console.log(`Conexão rejeitada por que:  ${e.message}`);
 			logger.log('info', `Conexão rejeitada por que:  ${e.message}`);
 			throw e;
 		});
