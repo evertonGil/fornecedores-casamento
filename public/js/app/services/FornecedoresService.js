@@ -79,7 +79,7 @@ class FornecedoresService{
 
 	adicionaTipo(dado){
 		return new Promise((resolve, reject) => {
-
+			//console.log("adiciona tipo", this);
 			this._http.post(`v1/tipofornecedor`, dado)
 			.then(res => resolve(res))
 			.catch(err =>{
@@ -103,7 +103,7 @@ class FornecedoresService{
 
 	adicionaLocal(dado){
 		return new Promise((resolve, reject) => {
-
+			//console.log("adiciona local", this);
 			this._http.post(`v1/localfornecedor`, dado)
 			.then(res => resolve(res))
 			.catch(err =>{

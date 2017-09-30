@@ -177,13 +177,15 @@ class FormularioFornecedoresController{
 		.then(() => {
 			this.helperCadastraSeNaoTiver(this._conectaDB.listaTipo(), 
 				fornecedor.tipo, 
-				this._conectaDB);
+				this._conectaDB,
+				this._conectaDB.adicionaTipo.bind(this._conectaDB));
 		})
 		.then(() => {
 
 			this.helperCadastraSeNaoTiver(this._conectaDB.listaLocal(), 
 				fornecedor.local, 
-				this._conectaDB);
+				this._conectaDB,
+				this._conectaDB.adicionaLocal.bind(this._conectaDB));
 		})
 		.catch(err => {
 			console.log(err);
@@ -194,7 +196,7 @@ class FormularioFornecedoresController{
 
 	}
 
-	helperCadastraSeNaoTiver(promise, param, connection){
+	helperCadastraSeNaoTiver(promise, param, connection, adiciona){
 
 		let tipoObj = {nome: param.toLowerCase()};
 
@@ -206,13 +208,13 @@ class FormularioFornecedoresController{
 
 				if(!Existe){
 
-					let promiseAdiciona = connection.adicionaLocal(tipoObj);
+					let promiseAdiciona = adiciona(tipoObj);
 					promiseAdiciona.then(res => console.log(res)).catch(err => console.log(err));
 				}
 			}
 			else{
 				
-				let promiseAdiciona = connection.adicionaLocal(tipoObj);
+				let promiseAdiciona = adiciona(tipoObj);
 				promiseAdiciona.then(res => console.log(res)).catch(err => console.log(err));
 			}
 		})
