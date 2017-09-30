@@ -9,11 +9,12 @@ class FormularioFornecedoresController{
 			'novaMsg');
 
 		this._conectaDB = new FornecedoresService();
+
+		this._validacoes = new Validacoes();
 	}
 
 	init(cb){
 		
-		//console.log('this:', this);
 		let $select = document.querySelector.bind(document);
 
 		$('.modal').modal();
@@ -23,14 +24,13 @@ class FormularioFornecedoresController{
 			new FormFornecedorView($select("#fornecedorView")),
 			'id', 'limpa', 'setaValores' );
 
-		console.log('init.fornecedor', this._fornecedor.cardapios);
-
 		this._fornecedor.cardapios =  new Bind(
 			new Cardapios(),
 			new FormCardapioView(document.querySelector("#cardapiosView")),
 			'adiciona', 'exclui', 'limpa');
-
-		console.log('init.fornecedor.cardapios.lista', this._fornecedor.cardapios.lista);
+		//console.log('init.fornecedor.cardapios.lista', this._fornecedor.cardapios.lista);
+		this._easyAutocomplete("/v1/tipofornecedor", "#fornecedorView #tipo");
+		this._easyAutocomplete("/v1/localfornecedor", "#fornecedorView #local");
 
 		if(cb){
 			cb();			
@@ -44,8 +44,21 @@ class FormularioFornecedoresController{
 		//console.log('end.fornecedor.cardapio', this._fornecedor.cardapios);
 	}
 
+	_easyAutocomplete(url, classe){
+		var options = {
+			url: url,
+			getValue: "nome",
+			list: {
+				match: {
+					enabled: true
+				}
+			}
+		};
+		$(classe).easyAutocomplete(options);
+	}
+
 	_todosInputs(item){ 
-		return Array.prototype.slice.call(document.querySelectorAll(".formulario_fornecedor input")).reverse();
+		return Array.prototype.slice.call(document.querySelectorAll(".formulario_fornecedor input"));
 	}
 
 	editaFornecedor(evento, id){
@@ -58,16 +71,17 @@ class FormularioFornecedoresController{
 			listaFornecedores.forEach((item, index, arr) =>{
 
 				if(item._id == id){
-					console.log('editaFornecedor.item:', item);
-					console.log('editaFornecedor.fornecedor', this._fornecedor);
 					
 					item.cardapios.lista.forEach((cardapio, index) =>{
 						this._fornecedor.cardapios.adiciona(cardapio);
 					});
 
-					this._fornecedor.setaValores(item.id, item.nome, item.qtdMax, item.local, item.tipo, item.observacoes, this._fornecedor.cardapios);
+					this._fornecedor.setaValores(item.id, item.nome, item.qtdMax, item.local, item.tipo, item.observacoes, this._fornecedor.cardapios, item.link);
 				}
-			})
+			});
+			
+			this._easyAutocomplete("/v1/tipofornecedor", "#fornecedorView #tipo");
+			this._easyAutocomplete("/v1/localfornecedor", "#fornecedorView #local");
 		});
 	}
 
@@ -115,35 +129,20 @@ class FormularioFornecedoresController{
 
 
 	adiciona(event){
+
+		event.preventDefault();
 		
 		let $select = document.querySelector.bind(document);
-		let valido = true;
-		var index_inputs = 0;
+		let invalido = this._validacoes.validaRegExp(this._todosInputs());
 
-		//console.log(this._todosInputs());
-
-		this._todosInputs().forEach((item, index, arr) => {
-
-			if(item.validity.valid == false)
-			{
-				valido = item.validity.valid;
-				//console.log(item.id, item.validity.valid, valido);
-				item.classList.add("is-invalid");
-				item.focus();
-			}
-			else{
-				item.classList.remove("is-invalid");
-				//console.log(item.id , "valido");
-			}
-		});
-
-		if(!valido)
+		console.log('invalido: ', invalido);
+		if(invalido)
 		{
 			this._mensagem.novaMsg('Por favor preencha os campos obrigatórios', "danger", 2400);
 			return;
 		}
 		
-		event.preventDefault();
+		//criando o object para ser enviado
 		let fornecedor = this._fornecedor;
 				
 		Object.defineProperty(fornecedor, '_id', {
@@ -163,98 +162,78 @@ class FormularioFornecedoresController{
 
 		fornecedor.cardapios = fornecedor.cardapios.lista;
 
+		let promise;
 
-		if(!fornecedor.id){
-			//console.log("id vazio", fornecedor.id);
-
-			let promisse = this._conectaDB.enviarNovoFornecedor(fornecedor);
-			promisse
-			.then(res => {
-				this._mensagem.novaMsg('Forncedor incluido com sucesso', "success", 2400);
-
-				this.end();
-
-				fornecedoresController.importa();
-				//this._limpaFormulario();
-				console.log(res);
-			})
-			.catch(err => {
-				console.log(err);
-
-				var erros = JSON.parse(err).errors;
-
-				this.iteraObjeto(erros, (prop, objeto, index) => {
-					this._todosInputs().forEach(input => {
-						if(input.id == prop){
-							input.classList.add("is-invalid");
-							 input.focus()
-						}
-						else{ 
-							input.classList.remove("is-invalid");
-						}
-					})				
-				});
-
-				this._mensagem.novaMsg('Não foi possível cadastrar o fornecedor.', "danger", 2400);
-			});
-			
-		}
-		else{
-			console.log("req id:", fornecedor.id);
-			console.log("req body:", fornecedor);
-			let promise = this._conectaDB.editaFornecedor(fornecedor.id, fornecedor);
-
-			promise
-			.then(res => {
-				this._mensagem.novaMsg('Forncedor incluido com sucesso', "success", 2400);
-
-				this.end();
-
-				fornecedoresController.importa();
-				console.log(res);
-			})
-			.catch(err => {
-				console.log(err);
-
-				var erros = JSON.parse(err).errors;
-
-				this.iteraObjeto(erros, (prop, objeto, index) => {
-					this._todosInputs().forEach(input => {
-						if(input.id == prop){
-							input.classList.add("is-invalid");
-							 input.focus()
-						}
-						else{ 
-							input.classList.remove("is-invalid");
-						}
-					})				
-				});
-
-				this._mensagem.novaMsg('Não foi Atualizar o fornecedores.', "danger", 2400);
-			});
-			//console.log("id:", fornecedor.id);
-		}
+		if(!fornecedor.id){	promise = this._conectaDB.enviarNovoFornecedor(fornecedor); }
+		else{ promise = this._conectaDB.editaFornecedor(fornecedor.id, fornecedor); }
 		
+		promise
+		.then(res => {
+			this._mensagem.novaMsg('Forncedor incluido com sucesso', "success", 2400);
+			this.end();
+			fornecedoresController.importa();
+			console.log(res);
+		})
+		.then(() => {
+			this.helperCadastraSeNaoTiver(this._conectaDB.listaTipo(), 
+				fornecedor.tipo, 
+				this._conectaDB);
+		})
+		.then(() => {
 
-		
+			this.helperCadastraSeNaoTiver(this._conectaDB.listaLocal(), 
+				fornecedor.local, 
+				this._conectaDB);
+		})
+		.catch(err => {
+			console.log(err);
+			trataErrorsInput(err);
+			this._mensagem.novaMsg('Não foi possível cadastrar o fornecedor.', "danger", 2400);
+		});
 
 
 	}
 
-	_limpaFormulario(){
-		let primeiroInput = document.querySelector("#fornecedorView #nome");
-		let formFornecedor = document.querySelector("#fornecedorView");
-		let formCardapios = document.querySelectorAll(".cardapio");
+	helperCadastraSeNaoTiver(promise, param, connection){
 
-		this._todosInputs().forEach((item, i) => {
-			item.value = "";
+		let tipoObj = {nome: param.toLowerCase()};
+
+		promise
+		.then(res =>{
+			if(res.length)
+			{
+				var Existe = res.some((item, i, arr) =>{ return item.nome.toLowerCase() == param.toLowerCase(); });
+
+				if(!Existe){
+
+					let promiseAdiciona = connection.adicionaLocal(tipoObj);
+					promiseAdiciona.then(res => console.log(res)).catch(err => console.log(err));
+				}
+			}
+			else{
+				
+				let promiseAdiciona = connection.adicionaLocal(tipoObj);
+				promiseAdiciona.then(res => console.log(res)).catch(err => console.log(err));
+			}
 		})
+		.catch(err =>{
+			console.log(err);
+		});
+	}
 
-		//this._listaCardapios.limpa();
+	trataErrorsInput(err){
+		var erros = JSON.parse(err).errors;
 
-		//this._fornecedor.limpa();
-		
-		//console.log(this._fornecedor);
-		primeiroInput.focus();
+		this.iteraObjeto(erros, (prop, objeto, index) => {
+			this._todosInputs().forEach(input => {
+				if(input.id == prop){
+					input.classList.add("is-invalid");
+					 input.focus()
+				}
+				else{ 
+					input.classList.remove("is-invalid");
+				}
+			})				
+		});
 	}
 }

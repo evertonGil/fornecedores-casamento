@@ -13,7 +13,7 @@ class ListaFornecedoresView extends View{
 					<table width="100%">
 						<tr  class="header_f">
 							<td class="id" rowspan="${fornecedor.cardapios.lista.length + 1}">${fornecedor.id}</td>
-			                <td class="fornecedor">${fornecedor.nome}</td>
+			                <td class="fornecedor">${fornecedor.link ? `<a href="${fornecedor.link}" target="_blank">` : ``}${fornecedor.nome}${fornecedor.link ? `</a>` : ``}</td>
 			                <td class="qtd_max">${fornecedor.qtdMax}</td>
 			                <td class="local">${fornecedor.local}</td>
 			                <td class="tipo">${fornecedor.tipo}</td>

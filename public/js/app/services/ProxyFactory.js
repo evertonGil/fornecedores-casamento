@@ -10,7 +10,7 @@ class ProxyFactory{
 
 			            return function(){
 
-			             	console.log(`Model: '${target.__proto__.constructor.name}' diz: método '${prop}' interceptado`);
+			             	//console.log(`Model: '${target.__proto__.constructor.name}' diz: método '${prop}' interceptado`);
 			             	//console.log(target, acao);
 			             	let retorno = Reflect.apply(target[prop], target, arguments);
 			             	//console.log("target", target, acao);

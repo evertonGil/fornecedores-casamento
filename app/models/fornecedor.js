@@ -19,6 +19,9 @@ var schema = mongoose.Schema({
 	observacoes:{
 		type: String,
 	},
+	link:{
+		type: String,
+	},
 	cardapios: {
 		type: Array,
 	}

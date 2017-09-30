@@ -1,12 +1,13 @@
 class Fornecedor{
 	
-	constructor(id, nome, qtdMax, local, tipo, observacoes, listaCardapios){
+	constructor(id, nome, qtdMax, local, tipo, observacoes, listaCardapios, link){
 		this._id = id ? id : '';
 		this.nome = nome ? nome : '';
 		this.qtdMax = qtdMax ? parseFloat(qtdMax) : 0;
 		this.local = local ? local : '';
 		this.tipo = tipo ? tipo : '';
 		this.observacoes = observacoes ? observacoes : '';
+		this.link = link ? link: '';
 		//this.cardapios = listaCardapios ? listaCardapios : [];
 		this.cardapios = listaCardapios ? new Cardapios(listaCardapios.lista) : new Cardapios();
 	}
@@ -19,7 +20,7 @@ class Fornecedor{
 		return this._listaCardapios;
 	}
 
-	setaValores(id, nome, qtdMax, local, tipo, observacoes, listaCardapios){
+	setaValores(id, nome, qtdMax, local, tipo, observacoes, listaCardapios, link){
 		this._id = id ? id : '';
 		this.nome = nome ? nome : '';
 		this.qtdMax = qtdMax ? parseFloat(qtdMax) : 0;
@@ -27,6 +28,7 @@ class Fornecedor{
 		this.tipo = tipo ? tipo : '';
 		this.observacoes = observacoes ? observacoes : '';
 		this.cardapios = listaCardapios ? listaCardapios : new Cardapios();
+		this.link = link ? link: '';
 		//console.log("Fornecedor.cardapios:", listaCardapios)
 	}
 

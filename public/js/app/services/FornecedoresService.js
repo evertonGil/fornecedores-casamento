@@ -18,7 +18,7 @@ class FornecedoresService{
 		            		listaCardapios.adiciona(cardapio)
 		            	});
 		            	
-		            	var forn = new Fornecedor(objeto._id, objeto.nome, objeto.qtdMax, objeto.local, objeto.tipo, objeto.observacoes, listaCardapios);
+		            	var forn = new Fornecedor(objeto._id, objeto.nome, objeto.qtdMax, objeto.local, objeto.tipo, objeto.observacoes, listaCardapios , objeto.link);
 
 				 		return  forn;
 				 })
@@ -62,6 +62,54 @@ class FornecedoresService{
 				console.log(err);
 			    reject('Não foi possível deletar os fornecedores.')
 			});
+		})
+	}
+
+	listaTipo(){
+		return new Promise((resolve, reject) => {
+
+			this._http.get(`v1/tipofornecedor`)
+			.then(res => resolve(res))
+			.catch(err =>{
+			    reject(err);
+			});
+
+		})
+	}
+
+	adicionaTipo(dado){
+		return new Promise((resolve, reject) => {
+
+			this._http.post(`v1/tipofornecedor`, dado)
+			.then(res => resolve(res))
+			.catch(err =>{
+			    reject(err);
+			});
+
+		})
+	}
+
+	listaLocal(){
+		return new Promise((resolve, reject) => {
+
+			this._http.get(`v1/localfornecedor`)
+			.then(res => resolve(res))
+			.catch(err =>{
+			    reject(err);
+			});
+
+		})
+	}
+
+	adicionaLocal(dado){
+		return new Promise((resolve, reject) => {
+
+			this._http.post(`v1/localfornecedor`, dado)
+			.then(res => resolve(res))
+			.catch(err =>{
+			    reject(err);
+			});
+
 		})
 	}
 

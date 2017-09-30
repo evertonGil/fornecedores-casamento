@@ -1,4 +1,6 @@
 body{font-size: 14px;}
+#titulo_pagina h1{margin: 10px 0 40px 0;}
+#filtros{padding: 0px;}
 .listadecompras{border: 2px solid #eeeeee; padding: 0px;}
 .container .jumbotron{border-top-right-radius: 0px; border-bottom-right-radius: 0px; position: relative;}
 .alert{transition:s; -webkit-transition:4s;}
@@ -7,7 +9,7 @@ body{font-size: 14px;}
 tbody td .delete{font-size: 1.4em; color: #fb0000;}
 
 table .id{width: 0%; text-align: center; display: none;}
-table .fornecedor{width: 19%;text-align: left;}
+table .fornecedor{width: 18%;text-align: left;}
 table .qtd_max{width: 5%;text-align: center;}
 table .local{width: 9%; text-align: center;}
 table .tipo{width: 9%; text-align: center;}
@@ -17,15 +19,15 @@ table .aluguel_pessas{width: 8%; text-align: right;}
 table .aluguel_pessas2{width: 8%; text-align: right;}
 table .dj{width: 7%; text-align: right;}
 table .decoracao{width: 8%; text-align: right;}
-table .observacoes{width: 9%; text-align: center;}
-.header_f td.observacoes{font-weight: normal;}
+table .observacoes{width: 10%;text-align: center;}
+.header_f td.observacoes{font-weight: normal;font-size: 12px;}
 table thead .excluir .delete, table thead .editar{}
 table .excluir{width: 2%; text-align: center;}
 table .editar{width: 2%; text-align: center;}
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {word-break: break-word; padding: 5px 6px; box-sizing: border-box;}
 .header_f td.fornecedor{font-weight:bold;}
 #listaFornecedoresView > tr > td{padding: 0px;}
-.table tbody tr td table tr td{padding: 5px 6px; box-sizing: border-box;}
+.table tbody tr td table tr td{padding: 6px 6px;box-sizing: border-box;line-height: 1.1em;}
 .table tbody tr td table tr.sub td.nome{padding-left: 20px;}
 .sort{cursor:pointer;}
 .table-striped tbody tr table tr{background: transparent !important;}
@@ -45,11 +47,47 @@ table .editar{width: 2%; text-align: center;}
     font-size: 19px;
 }
 .col-inclui{
-	width: 20px;
+    width: 20px;
 }
 .jumbotron .table-bordered td, .jumbotron .table-bordered th {
-	border-bottom: 1px solid #868e96;
+    border-bottom: 1px solid #868e96;
 }
 .jumbotron .table-bordered tfoot td{
-	border-bottom: none;
+    border-bottom: none;
 }
+.error-info{font-size: 10px;}
+
+.popover {
+    border: 0px;
+}
+.popover-header {
+    padding: 5px 8px;
+    margin-bottom: 0;
+    font-size: 0.8em;
+    color: #fff;
+    background-color: #ff1f1f;
+    border: 0px;
+}
+.popover.bs-popover-auto[x-placement^=bottom] .arrow::before, .popover.bs-popover-bottom .arrow::before {
+    top: -11px;
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+.popover.bs-popover-auto[x-placement^=bottom] .arrow::after, .popover.bs-popover-bottom .arrow::after {
+    top: -10px;
+    border-bottom-color: #ff1f1f;
+}
+.popover.bs-popover-auto[x-placement^=bottom] .popover-header::before, .popover.bs-popover-bottom .popover-header::before{
+    display: none;
+}
+.input-group-addon {
+    padding: .3rem .5rem;
+}
+.grupo-filtros{border: 1px solid rgba(0,0,0,.15);padding: 8px 0;max-height: 50px;}
+select.form-control:not([size]):not([multiple]){
+    height: auto;
+    padding: 5px;
+    font-size: 1em;
+    line-height: 1em;
+}
+.form-control {padding: 5px;font-size: 1em;}
+.grupo-filtros  span{margin: 5px 8px 0 0;}

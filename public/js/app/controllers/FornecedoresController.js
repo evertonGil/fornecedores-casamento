@@ -17,6 +17,7 @@ class FornecedoresController{
 		this._convidados = $select("#convidados");
 
 		this._consultaDB = new FornecedoresService();
+		
 
 		this.importa();
 	}
@@ -25,51 +26,81 @@ class FornecedoresController{
 		event.preventDefault();
 		let filtro = event.srcElement.value;
 
+		let filtroBusca = document.querySelector("#filtroBusca").value;
+		let filtroTipo = document.querySelector("#selectTipo").value;
+		let filtroLocal = document.querySelector("#selectLocal").value;
+
+		console.log("filtro: ", filtroBusca);
+		console.log("tipo: ", filtroTipo);
+
 		this._listaDeFornecedores.filtra((item, i, arr )=>{
+			var umaPropBate = false;
+			var validador = {
+				tipo: false,
+				nome: false,
+				qtdMax: false,
+				local: false
+				
+			}
 
 			for (var property in item) {
 				if (item.hasOwnProperty(property)) {
-					let existe = false;
-					if (FornecedoresController._ehString(item[property])){
 
-						let valor = item[property].toLowerCase();
+					let valor = item[property];
+					var propBate;
 
-						if(existe == false){
-							existe = valor.includes(filtro.toLowerCase());
-						}
-						if(existe){
-							return true;
-						}
+					switch(property){
+						case "nome":
+							valor = item[property].toLowerCase();
+							validador.nome = valor.includes(filtroBusca.toLowerCase());
+							//console.log('validador.nome', validador.nome,property ,item[property]);
+						break;
+						case "qtdMax":
+							valor = item[property];
+							validador.qtdMax = valor == filtroBusca;
+							//console.log('validador.qtdMax', validador.qtdMax,property ,item[property]);
+						break;
+						case "local":
+							valor = item[property].toLowerCase();
+							validador.local = valor.includes(filtroLocal.toLowerCase());
+							//console.log('validador.local', validador.local,property ,item[property]);
+						break;
+						case "tipo":
+							valor = item[property].toLowerCase();
+							validador.tipo = valor.includes(filtroTipo.toLowerCase());
+							//console.log('validador.local', validador.local,property ,item[property]);
+						break;
 					}
 				}
 			}
+
+			console.log(item, validador)
+
+			if(validador.tipo && validador.local && (validador.nome || validador.qtdMax)){
+				return true;
+			}
+			else{
+				return false;
+			}
+
 		});
 		this._sort.limpa('fa-sort');
-		this._mensagem.novaMsg(`Filtro realizado`,"info", 1400);
+		
 	}
 
-	static _ehString(func){
-		return typeof(func) == typeof("string")
-	}
 	importa(){
 		
 		this._listaDeFornecedores.limpa();
 
 		let promisse = this._consultaDB.obterListaFornecedores(this._convidados.value);
 		promisse
-		/*
-		.then(res => {
-			return res.filter(fornecedor =>
-				!this._listaDeFornecedores.lista.some(fornecedorExistente =>
-					JSON.stringify(fornecedor._id) == JSON.stringify(fornecedorExistente._id)
-					))
-		})
-		*/
 		.then(res => res.forEach(fornecedor => 	{
-			//console.log('importa.fornecedor',fornecedor);
 			this._listaDeFornecedores.adiciona(fornecedor);
-			//console.log('importa._listaDeFornecedores', this._listaDeFornecedores);
 		}))
+		.then(() =>{
+			this.propagaSelectTipo("#filtroTipo select", this._consultaDB.listaTipo());
+			this.propagaSelectTipo("#filtroLocal select", this._consultaDB.listaLocal());
+		})
 		.catch(err => {
 			console.log(err);
 			this._mensagem.novaMsg(err, "danger", 2400);
@@ -90,6 +121,33 @@ class FornecedoresController{
 	ordena(event, coluna){
 		this._sort.ordena(event, coluna, this._listaDeFornecedores);
 		//this._mensagem.novaMsg(`Coluna ${coluna} ordenada`,"info", 1400);
+	}
+
+
+	propagaSelectTipo(inputId, consulta){
+		let promise = consulta;
+		let input = document.querySelector(inputId);
+		let option1 = document.createElement("option");
+
+		while (input.length) {
+	        input.remove(0);
+	    }
+	    option1.value = "";
+	    option1.text = "...";
+	    input.add(option1);
+
+		promise.
+		then(res =>{
+			res.forEach((item, i) =>{
+				let option = document.createElement("option");
+				option.value =  item.nome;
+				option.text = item.nome;
+
+				input.add(option);
+			});
+			
+		})
+		.catch(err =>console.log(err));
 	}
 
 	excluiFornecedor(event, id, index){
