@@ -1,116 +1,144 @@
-class FornecedoresService{
-	constructor(){
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var FornecedoresService = function () {
+	function FornecedoresService() {
+		_classCallCheck(this, FornecedoresService);
+
 		this._http = new HttpService();
 	}
-	obterListaFornecedores(convidados){
-		return new Promise((resolve, reject) => {
 
-			this._http.get('v1/fornecedores')
-			.then(res => {
-				resolve(
-					res.map(objeto => {
+	_createClass(FornecedoresService, [{
+		key: 'obterListaFornecedores',
+		value: function obterListaFornecedores(convidados) {
+			var _this = this;
 
-		            	let listaCardapios = new Cardapios();
+			return new Promise(function (resolve, reject) {
 
-		            	objeto.cardapios
-		            	.map(item => new Cardapio(item.nome, item.valorPorPessoa, item.aluguel, item.dj, item.decoracao, convidados))
-		            	.forEach(cardapio => {
-		            		listaCardapios.adiciona(cardapio)
-		            	});
-		            	
-		            	var forn = new Fornecedor(objeto._id, objeto.nome, objeto.qtdMax, objeto.local, objeto.tipo, objeto.observacoes, listaCardapios , objeto.link);
+				_this._http.get('v1/fornecedores').then(function (res) {
+					resolve(res.map(function (objeto) {
 
-				 		return  forn;
-				 })
-				)
-			})
-			.catch(err =>{
-				console.log(err);
-			    reject('Não foi possível obter os fornecedores do servidor.')
+						var listaCardapios = new Cardapios();
+
+						objeto.cardapios.map(function (item) {
+							return new Cardapio(item.nome, item.valorPorPessoa, item.aluguel, item.dj, item.decoracao, convidados);
+						}).forEach(function (cardapio) {
+							listaCardapios.adiciona(cardapio);
+						});
+
+						var forn = new Fornecedor(objeto._id, objeto.nome, objeto.qtdMax, objeto.local, objeto.tipo, objeto.observacoes, listaCardapios, objeto.link);
+
+						return forn;
+					}));
+				}).catch(function (err) {
+					console.log(err);
+					reject('Não foi possível obter os fornecedores do servidor.');
+				});
 			});
+		}
+	}, {
+		key: 'enviarNovoFornecedor',
+		value: function enviarNovoFornecedor(dado) {
+			var _this2 = this;
 
-		})
-	}
-
-	enviarNovoFornecedor(dado){
-		return new Promise((resolve, reject) => {
-			this._http.post('v1/fornecedores', dado)
-			.then(res => resolve(res))
-			.catch(err =>{
-				//console.log(err);
-			    reject(err)
+			return new Promise(function (resolve, reject) {
+				_this2._http.post('v1/fornecedores', dado).then(function (res) {
+					return resolve(res);
+				}).catch(function (err) {
+					//console.log(err);
+					reject(err);
+				});
 			});
-		})
-	}
+		}
+	}, {
+		key: 'editaFornecedor',
+		value: function editaFornecedor(id, dado) {
+			var _this3 = this;
 
-	editaFornecedor(id, dado){
-		return new Promise((resolve, reject) => {
-			this._http.put(`v1/fornecedores/${id}`, dado)
-			.then(res => resolve(res))
-			.catch(err =>{
-				//console.log(err);
-			    reject(err)
+			return new Promise(function (resolve, reject) {
+				_this3._http.put('v1/fornecedores/' + id, dado).then(function (res) {
+					return resolve(res);
+				}).catch(function (err) {
+					//console.log(err);
+					reject(err);
+				});
 			});
-		})
-	}
+		}
+	}, {
+		key: 'deletaFornecedorPorId',
+		value: function deletaFornecedorPorId(id) {
+			var _this4 = this;
 
-	deletaFornecedorPorId(id){
-		return new Promise((resolve, reject) =>{
-			this._http.delete(`v1/fornecedores/${id}`)
-			.then(res => resolve(res))
-			.catch(err =>{
-				console.log(err);
-			    reject('Não foi possível deletar os fornecedores.')
+			return new Promise(function (resolve, reject) {
+				_this4._http.delete('v1/fornecedores/' + id).then(function (res) {
+					return resolve(res);
+				}).catch(function (err) {
+					console.log(err);
+					reject('Não foi possível deletar os fornecedores.');
+				});
 			});
-		})
-	}
+		}
+	}, {
+		key: 'listaTipo',
+		value: function listaTipo() {
+			var _this5 = this;
 
-	listaTipo(){
-		return new Promise((resolve, reject) => {
+			return new Promise(function (resolve, reject) {
 
-			this._http.get(`v1/tipofornecedor`)
-			.then(res => resolve(res))
-			.catch(err =>{
-			    reject(err);
+				_this5._http.get('v1/tipofornecedor').then(function (res) {
+					return resolve(res);
+				}).catch(function (err) {
+					reject(err);
+				});
 			});
+		}
+	}, {
+		key: 'adicionaTipo',
+		value: function adicionaTipo(dado) {
+			var _this6 = this;
 
-		})
-	}
-
-	adicionaTipo(dado){
-		return new Promise((resolve, reject) => {
-			//console.log("adiciona tipo", this);
-			this._http.post(`v1/tipofornecedor`, dado)
-			.then(res => resolve(res))
-			.catch(err =>{
-			    reject(err);
+			return new Promise(function (resolve, reject) {
+				//console.log("adiciona tipo", this);
+				_this6._http.post('v1/tipofornecedor', dado).then(function (res) {
+					return resolve(res);
+				}).catch(function (err) {
+					reject(err);
+				});
 			});
+		}
+	}, {
+		key: 'listaLocal',
+		value: function listaLocal() {
+			var _this7 = this;
 
-		})
-	}
+			return new Promise(function (resolve, reject) {
 
-	listaLocal(){
-		return new Promise((resolve, reject) => {
-
-			this._http.get(`v1/localfornecedor`)
-			.then(res => resolve(res))
-			.catch(err =>{
-			    reject(err);
+				_this7._http.get('v1/localfornecedor').then(function (res) {
+					return resolve(res);
+				}).catch(function (err) {
+					reject(err);
+				});
 			});
+		}
+	}, {
+		key: 'adicionaLocal',
+		value: function adicionaLocal(dado) {
+			var _this8 = this;
 
-		})
-	}
-
-	adicionaLocal(dado){
-		return new Promise((resolve, reject) => {
-			//console.log("adiciona local", this);
-			this._http.post(`v1/localfornecedor`, dado)
-			.then(res => resolve(res))
-			.catch(err =>{
-			    reject(err);
+			return new Promise(function (resolve, reject) {
+				//console.log("adiciona local", this);
+				_this8._http.post('v1/localfornecedor', dado).then(function (res) {
+					return resolve(res);
+				}).catch(function (err) {
+					reject(err);
+				});
 			});
+		}
+	}]);
 
-		})
-	}
-
-}
+	return FornecedoresService;
+}();
+//# sourceMappingURL=FornecedoresService.js.map

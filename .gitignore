@@ -47,3 +47,6 @@ jspm_packages
 .yarn-integrity
 
 app/logs/info-fornecedores
+fornecedores_casamento.sublime-project
+fornecedores_casamento.sublime-workspace
+package.json
