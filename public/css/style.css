@@ -1,4 +1,4 @@
-body{font-size: 14px;}
+body{font-size: 12px;}
 #titulo_pagina h1{margin: 10px 0 40px 0;}
 #filtros{padding: 0px;}
 .listadecompras{border: 2px solid #eeeeee; padding: 0px;}
@@ -26,6 +26,8 @@ table .excluir{width: 2%; text-align: center;}
 table .editar{width: 2%; text-align: center;}
 .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {word-break: break-word; padding: 5px 6px; box-sizing: border-box;}
 .header_f td.fornecedor{font-weight:bold;}
+.no-padding{padding: 0px !important;}
+#listaFornecedoresView{height: 450px; overflow: auto;}
 #listaFornecedoresView > tr > td{padding: 0px;}
 .table tbody tr td table tr td{padding: 6px 6px;box-sizing: border-box;line-height: 1.1em;}
 .table tbody tr td table tr.sub td.nome{padding-left: 20px;}
@@ -40,6 +42,9 @@ table .editar{width: 2%; text-align: center;}
     background-color: #007bff;
     color: #fff;
     font-weight: normal;
+}
+#listaComprasView .thead-default th.scroll{
+    width: 1.5%;
 }
 
 

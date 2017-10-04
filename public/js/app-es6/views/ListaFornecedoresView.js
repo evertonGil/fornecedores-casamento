@@ -7,9 +7,10 @@ class ListaFornecedoresView extends View{
 
 	template(model){
 		return `
+		<table class="table table-striped">
 		${model.lista.map((fornecedor, index) =>`
-			<tr >
-				<td colspan="14">
+			<tr>
+				<td class="no-padding" colspan="14">
 					<table width="100%">
 						<tr  class="header_f">
 							<td class="id" rowspan="${fornecedor.cardapios.lista.length + 1}">${fornecedor.id}</td>
@@ -31,22 +32,23 @@ class ListaFornecedoresView extends View{
 						
 						${fornecedor.cardapios.lista.map((cardapio, index) =>`
 							<tr class="sub">
-				                <td class="nome">${cardapio.nome}</td>
+				                <td class="nome"> - ${cardapio.nome}</td>
 				                <td class="qtd_max"></td>
 				                <td class="local"></td>
 				                <td class="tipo"></td>
-				                <td class="valor_por_pessoa">${cardapio.valorPorPessoa > 0 ? cardapio.valorPorPessoa.toFixed(2) : ''}</td>
-				                <td class="aluguel">${cardapio.aluguel > 0 ? cardapio.aluguel.toFixed(2) : ''}</td>
-				                <td class="aluguel_pessas">${cardapio.aluguelPessoas > 0 ? cardapio.aluguelPessoas.toFixed(2) : ''}</td>
-				                <!--<td class="aluguel_pessas2">${cardapio.aluguelPessoas2 > 0 ? cardapio.aluguelPessoas2.toFixed(2) : ''}</td>-->
-				                <td class="dj">${cardapio.dj > 0 ? cardapio.dj.toFixed(2) : ''}</td>
-				                <td class="decoracao">${cardapio.decoracao>0 ? cardapio.decoracao.toFixed(2) : ''}</td>
+				                <td class="valor_por_pessoa">${cardapio.valorPorPessoa > 0 ? FormataNumeracao.reais(cardapio.valorPorPessoa.toFixed(2)) : ''}</td>
+				                <td class="aluguel">${cardapio.aluguel > 0 ? FormataNumeracao.reais(cardapio.aluguel.toFixed(2)) : ''}</td>
+				                <td class="aluguel_pessas">${cardapio.aluguelPessoas > 0 ? FormataNumeracao.reais(cardapio.aluguelPessoas.toFixed(2)) : ''}</td>
+				                <!--<td class="aluguel_pessas2">${cardapio.aluguelPessoas2 > 0 ? FormataNumeracao.reais(cardapio.aluguelPessoas2.toFixed(2)) : ''}</td>-->
+				                <td class="dj">${cardapio.dj > 0 ? FormataNumeracao.reais(cardapio.dj.toFixed(2)) : ''}</td>
+				                <td class="decoracao">${cardapio.decoracao>0 ? FormataNumeracao.reais(cardapio.decoracao.toFixed(2)) : ''}</td>
 			        		</tr>
 		        		`).join('')}
 					</table>
 				</td>
 			</tr>
 		`).join('')}
+		</table>
 		`
 		
 	}

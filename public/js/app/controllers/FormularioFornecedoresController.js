@@ -25,6 +25,10 @@ var FormularioFornecedoresController = function () {
 
 			$('.modal').modal();
 
+			$('.modal').on('shown.bs.modal', function () {
+				$('#nome').focus();
+			});
+
 			this._fornecedor = new Bind(new Fornecedor(), new FormFornecedorView($select("#fornecedorView")), 'id', 'limpa', 'setaValores');
 
 			this._fornecedor.cardapios = new Bind(new Cardapios(), new FormCardapioView(document.querySelector("#cardapiosView")), 'adiciona', 'exclui', 'limpa');
@@ -32,6 +36,7 @@ var FormularioFornecedoresController = function () {
 			this._easyAutocomplete("/v1/tipofornecedor", "#fornecedorView #tipo");
 			this._easyAutocomplete("/v1/localfornecedor", "#fornecedorView #local");
 
+			console.log($select('#fornecedorView #nome'));
 			if (cb) {
 				cb();
 			}
@@ -49,7 +54,10 @@ var FormularioFornecedoresController = function () {
 		value: function _easyAutocomplete(url, classe) {
 			var options = {
 				url: url,
-				getValue: "nome",
+				getValue: function getValue(element) {
+					console.log(this, element.nome);
+					return Captalize.string(element.nome);
+				},
 				list: {
 					match: {
 						enabled: true

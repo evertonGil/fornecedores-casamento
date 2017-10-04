@@ -19,7 +19,16 @@ var FornecedoresService = function () {
 			return new Promise(function (resolve, reject) {
 
 				_this._http.get('v1/fornecedores').then(function (res) {
-					resolve(res.map(function (objeto) {
+					resolve(res.sort(function (a, b) {
+
+						if (a.nome.toLowerCase() > b.nome.toLowerCase()) {
+							return 1;
+						}
+						if (a.nome.toLowerCase() < b.nome.toLowerCase()) {
+							return -1;
+						}
+						return 0;
+					}).map(function (objeto) {
 
 						var listaCardapios = new Cardapios();
 

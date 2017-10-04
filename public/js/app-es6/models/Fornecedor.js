@@ -4,8 +4,8 @@ class Fornecedor{
 		this._id = id ? id : '';
 		this.nome = nome ? nome : '';
 		this.qtdMax = qtdMax ? parseFloat(qtdMax) : 0;
-		this.local = local ? local : '';
-		this.tipo = tipo ? tipo : '';
+		this.local = local ? Captalize.string(local) : '';
+		this.tipo = tipo ? Captalize.string(tipo) : '';
 		this.observacoes = observacoes ? observacoes : '';
 		this.link = link ? link: '';
 		//this.cardapios = listaCardapios ? listaCardapios : [];

@@ -51,10 +51,10 @@ class Sort{
 
 			model.ordena((a, b) => {
 				if (typeof a[coluna] == "string"){
-					if (a[coluna] > b[coluna]) {
+					if (a[coluna].toLowerCase() > b[coluna].toLowerCase()) {
 						return 1;
 					}
-					if (a[coluna] < b[coluna]) {
+					if (a[coluna].toLowerCase() < b[coluna].toLowerCase()) {
 						return -1;
 					}
 					return 0;

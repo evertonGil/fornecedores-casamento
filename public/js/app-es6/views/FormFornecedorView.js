@@ -8,7 +8,7 @@ class FormFornecedorView extends View{
 		<div class="form-group col-md-8">
 	        <div class="form-group">
 	            <label for="nome" class="">Nome Fornecedor:</label>
-	            <input type="text" id="nome" class="form-control form-control-sm"  title="Campo não pode ser em branco" required autofocus onchange="cadastroController.setValPropFornecedor(event)" value="${model.nome}"/>        
+	            <input type="text" id="nome" class="form-control form-control-sm"  title="Campo não pode ser em branco" required onchange="cadastroController.setValPropFornecedor(event)" value="${model.nome}"/>        
             </div>
 	        <div class="form-row">
 			    <div class="col">

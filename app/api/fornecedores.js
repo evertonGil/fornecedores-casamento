@@ -6,6 +6,7 @@ var api = {};
 api.lista = function(req, res){
 		return model
 			.find({})
+			.sort({nome: 'asc'})
 			.then(function(fornecedores){
 				res.json(fornecedores);
 			}, function(error){

@@ -8,11 +8,22 @@ class FornecedoresService{
 			this._http.get('v1/fornecedores')
 			.then(res => {
 				resolve(
-					res.map(objeto => {
+					res
+					.sort((a, b) =>{
+						
+						if(a.nome.toLowerCase() > b.nome.toLowerCase()){
+							return 1;
+						}
+						if(a.nome.toLowerCase() < b.nome.toLowerCase()){
+							return -1;
+						}
+						return 0;
+					})
+					.map(objeto => {
 
 		            	let listaCardapios = new Cardapios();
 
-		            	objeto.cardapios
+						objeto.cardapios
 		            	.map(item => new Cardapio(item.nome, item.valorPorPessoa, item.aluguel, item.dj, item.decoracao, convidados))
 		            	.forEach(cardapio => {
 		            		listaCardapios.adiciona(cardapio)

@@ -69,9 +69,9 @@
 
 	    <div  class="col-md-12 listadecompras">
 		    <div id="listaComprasView">
-		    	<table class="table table-striped ">
+		    	<table class="table ">
 			        <thead class="thead-default">
-			            <tr >
+			            <tr>
 				            <th class="id">#</th>
 			                <th class="fornecedor sort" onclick="fornecedoresController.ordena(event, 'nome')"> Fornecedor <i class="fa fa-sort" aria-hidden="true"></i></th>
 			                <th class="qtd_max sort" onclick="fornecedoresController.ordena(event, 'qtdMax')"> Qtd Max <i class="fa fa-sort" aria-hidden="true"></i></th>
@@ -82,14 +82,19 @@
 			                <th class="aluguel_pessas">convidados + Aluguel (R$)</th>
 			                <th class="dj">DJ (R$)</th>
 			                <th class="decoracao">Decoração (R$)</th>
-			                <th class="observacoes">Observações</th>
+			                <th class="observacoes sort" onclick="fornecedoresController.ordena(event, 'observacoes')"> Observações <i class="fa fa-sort" aria-hidden="true"></i></th>
 			                <th class="editar"><i class="fa fa-pencil edit" aria-hidden="true"></i></th>
-			                <th class="excluir"><i class="fa fa-trash fa-1x delete" aria-hidden="true"></i></th>
+							<th class="excluir"><i class="fa fa-trash fa-1x delete" aria-hidden="true"></i></th>
+							<th class="scroll">&nbsp;</th>
 			            </tr>
 			        </thead>
 
-			        <tbody id="listaFornecedoresView">
-							
+			        <tbody>
+						<tr>
+							<td class="no-padding" colspan="14">
+								<div id="listaFornecedoresView"></div>
+							</td>
+						</tr>
 			        </tbody>
 
 			    </table>
@@ -170,6 +175,8 @@
 <script src="js/app/helpers/Bind.js" ></script>
 <script src="js/app/helpers/Validacoes.js" ></script>
 <script src="js/app/helpers/Sort.js" ></script>
+<script src="js/app/helpers/Captalize.js" ></script>
+<script src="js/app/helpers/FormataNumeracao.js" ></script>
 <script src="js/app/helpers/jquery.easy-autocomplete.min.js" ></script>
 
 

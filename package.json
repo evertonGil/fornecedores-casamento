@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node app",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel public/js/app-es6 -d public/js/app --source-maps",
+    "build": "mongod | nodemon app",
     "watch": "babel public/js/app-es6 -d public/js/app --source-maps --watch"
   },
   "author": "alberto",
