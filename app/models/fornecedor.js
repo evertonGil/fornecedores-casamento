@@ -24,6 +24,9 @@ var schema = mongoose.Schema({
 	},
 	cardapios: {
 		type: Array,
+	},
+	anexos: {
+		type: Array,
 	}
 });
 console.log("schema Fornecedor registrado");

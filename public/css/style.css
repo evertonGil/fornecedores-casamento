@@ -96,3 +96,264 @@ select.form-control:not([size]):not([multiple]){
 }
 .form-control {padding: 5px;font-size: 1em;}
 .grupo-filtros  span{margin: 5px 8px 0 0;}
+
+
+
+.arquivos-anexos{
+    display: none;
+}
+.arquivos-anexos.aberto{
+    display: block;
+}
+
+#filedrag
+{
+	font-weight: bold;
+	text-align: center;
+	padding: 1em 0;
+	margin: 1em 0;
+	color: #555;
+    outline: 2px dashed #92b0b3;
+    background-color: #c8dadf;
+    outline-offset: -10px;
+    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    transition: outline-offset .15s ease-in-out, background-color .15s linear;
+}
+
+#filedrag.hover
+{
+    color:#fff;
+	outline-offset: -4px;
+    outline-color: #c8dadf;
+    background-color: #5293d9;
+}
+#filedrag .uploadSelect{
+    margin-top:px;
+}
+#filedrag #upload{
+    width: 109px;
+}
+
+.imgUpload{
+    width: 100px;
+    margin: 10px 0 0 0;
+}
+.icon_download .cls-1, .icon_download .cls-2 {
+    fill: none;
+    stroke: #fff;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill-rule: evenodd;
+  }
+
+.icon_download  .cls-1 {
+    stroke-width: 2px;
+  }
+
+.icon_download  .cls-2 {
+    stroke-width: 4px;
+  }
+
+body{font-size: 12px;}
+#titulo_pagina h1{margin: 10px 0 40px 0;}
+#filtros{padding: 0px;}
+.listadecompras{border: 2px solid #eeeeee; padding: 0px;}
+.container .jumbotron{border-top-right-radius: 0px; border-bottom-right-radius: 0px; position: relative;}
+.alert{transition:s; -webkit-transition:4s;}
+.alert.fade{opacity: 0;}
+#mensagemView{position: fixed; z-index: 99999; top: 0px;}
+tbody td .delete{font-size: 1.4em; color: #fb0000;}
+
+table .id{width: 0%; text-align: center; display: none;}
+table .fornecedor{width: 18%;text-align: left;}
+table .qtd_max{width: 5%;text-align: center;}
+table .local{width: 9%; text-align: center;}
+table .tipo{width: 9%; text-align: center;}
+table .valor_por_pessoa{width: 7%;text-align: right;}
+table .aluguel{width: 7%; text-align: right;}
+table .aluguel_pessas{width: 8%; text-align: right;}
+table .aluguel_pessas2{width: 8%; text-align: right;}
+table .dj{width: 7%; text-align: right;}
+table .decoracao{width: 8%; text-align: right;}
+table .observacoes{width: 10%;text-align: center;}
+.header_f td.observacoes{font-weight: normal;font-size: 12px;}
+table thead .excluir .delete, table thead .editar{}
+table .excluir{width: 2%; text-align: center;}
+table .editar{width: 2%; text-align: center;}
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {word-break: break-word; padding: 5px 6px; box-sizing: border-box;}
+.header_f td.fornecedor{font-weight:bold;}
+.no-padding{padding: 0px !important;}
+#listaFornecedoresView{height: 450px; overflow: auto;}
+#listaFornecedoresView > tr > td{padding: 0px;}
+.table tbody tr td table tr td{padding: 6px 6px;box-sizing: border-box;line-height: 1.1em;}
+.table tbody tr td table tr.sub td.nome{padding-left: 20px;}
+.sort{cursor:pointer;}
+.table-striped tbody tr table tr{background: transparent !important;}
+/*.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0,0,0,.05);
+}*/
+#listaComprasView table{margin:0}
+#listaComprasView .thead-default{}
+#listaComprasView .thead-default th {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: normal;
+}
+#listaComprasView .thead-default th.scroll{
+    width: 1.5%;
+}
+
+
+.btn-inclui-cardapio, .deletarCardapio  {
+    font-size: 19px;
+}
+.col-inclui{
+    width: 20px;
+}
+.jumbotron .table-bordered td, .jumbotron .table-bordered th {
+    border-bottom: 1px solid #868e96;
+}
+.jumbotron .table-bordered tfoot td{
+    border-bottom: none;
+}
+.error-info{font-size: 10px;}
+
+.popover {
+    border: 0px;
+}
+.popover-header {
+    padding: 5px 8px;
+    margin-bottom: 0;
+    font-size: 0.8em;
+    color: #fff;
+    background-color: #ff1f1f;
+    border: 0px;
+}
+.popover.bs-popover-auto[x-placement^=bottom] .arrow::before, .popover.bs-popover-bottom .arrow::before {
+    top: -11px;
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+.popover.bs-popover-auto[x-placement^=bottom] .arrow::after, .popover.bs-popover-bottom .arrow::after {
+    top: -10px;
+    border-bottom-color: #ff1f1f;
+}
+.popover.bs-popover-auto[x-placement^=bottom] .popover-header::before, .popover.bs-popover-bottom .popover-header::before{
+    display: none;
+}
+.input-group-addon {
+    padding: .3rem .5rem;
+}
+.grupo-filtros{border: 1px solid rgba(0,0,0,.15);padding: 8px 0;max-height: 50px;}
+select.form-control:not([size]):not([multiple]){
+    height: auto;
+    padding: 5px;
+    font-size: 1em;
+    line-height: 1em;
+}
+.form-control {padding: 5px;font-size: 1em;}
+.grupo-filtros  span{margin: 5px 8px 0 0;}
+
+
+
+.arquivos-anexos{
+    display: none;
+}
+.arquivos-anexos.aberto{
+    display: block;
+}
+
+#filedrag
+{
+    font-weight: bold;
+    text-align: center;
+    padding: 1em 0;
+    margin: 1em 0;
+    color: #555;
+    outline: 2px dashed #92b0b3;
+    background-color: #c8dadf;
+    outline-offset: -10px;
+    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    transition: outline-offset .15s ease-in-out, background-color .15s linear;
+}
+
+#filedrag.hover
+{
+    color:#fff;
+    outline-offset: -4px;
+    outline-color: #c8dadf;
+    background-color: #5293d9;
+}
+#filedrag .uploadSelect{
+    margin-top:px;
+}
+#filedrag #upload{
+    width: 109px;
+}
+  
+.imgUpload{
+    width: 100px;
+    margin: 10px 0 0 0;
+}
+.icon_download .cls-1, .icon_download .cls-2 {
+    fill: none;
+    stroke: #fff;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill-rule: evenodd;
+}
+
+.icon_download  .cls-1 {
+    stroke-width: 2px;
+}
+  
+.icon_download  .cls-2 {
+    stroke-width: 4px;
+}
+  
+.uploadEmProcesso{
+    position: fixed;
+    top:0;
+    left: 0;
+    bottom: 0;
+    right:0;
+    background-color: #c8dadf;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+}
+.uploadEmProcesso .imgUpload{
+    width: 200px;
+    margin: 20px 0;
+}
+.uploadEmProcesso .texto{
+    font-size: 20px;
+}
+
+#listaAnexosView{}
+#listaAnexosView ul{
+    margin: 0px;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+}
+#listaAnexosView ul li{
+    list-style: none;
+    width: 19%;
+    display: flex;
+    /* flex-direction: column; */
+    /* text-align: center; */
+    align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #3d4882;
+    margin: 0.5% 0.5%;
+}
+#listaAnexosView ul li a.linkAnexo{
+    margin-right: 20px;
+    font-weight: 500;
+    color: #3d4882;
+}
+#listaAnexosView ul li a.removeAnexo{
+    font-size:18px;
+}

@@ -96,6 +96,7 @@ var FornecedoresController = function () {
 			var promisse = this._consultaDB.obterListaFornecedores(this._convidados.value);
 			promisse.then(function (res) {
 				return res.forEach(function (fornecedor) {
+
 					_this._listaDeFornecedores.adiciona(fornecedor);
 				});
 			}).then(function () {

@@ -34,6 +34,8 @@ module.exports = function(){
     	next();
     });
     app.use(function(erro, req, res, next){
+		console.log(erro);
+		logger.log('error', erro);
     	if(process.env.NODE_ENV = 'prodution'){
     		res.status(500).render('erros/500');
     	}    	

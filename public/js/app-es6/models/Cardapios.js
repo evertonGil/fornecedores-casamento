@@ -6,8 +6,6 @@ class Cardapios{
 		this._lista.push(cardapio);
 	}
 	exclui(index){
-		//console.log(index);
-		//console.log(this._lista[index]);
 		this._lista.splice(index, 1);
 	}
 	limpa(){

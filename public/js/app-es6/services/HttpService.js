@@ -1,7 +1,10 @@
 class HttpService{
 
 	_handleErrors(res){
-		if(!res.ok) throw new Error(res.statusText)
+		if(!res.ok) {
+			console.log("errors disparado por HttpService");
+			throw new Error(res.statusText)
+		}
 		return res
 	}
 	get(url){
@@ -9,19 +12,22 @@ class HttpService{
 		.then(res => this._handleErrors(res))
 		.then(res => res.json());
 	}
-	post(url, dado){
+	post(url, dado, header){
 		return fetch(url, {
-			headers: {'content-type': 'application/json'},
+			headers: header,
 			method: 'POST',
-			body: JSON.stringify(dado)
+			body: dado
 		})
-		.then(res => this._handleErrors(res));
+		.then(res => this._handleErrors(res))
+		.then(res => res.json());
 	}
-	delete(url){
+	delete(url, header){
 		return fetch(url, {
-			method: 'DELETE'
+			method: 'DELETE',
+			headers: header
 		})
-		.then(res => this._handleErrors(res));
+		.then(res => this._handleErrors(res))
+		.then(res => res.json());
 	}
 	put(url, dado){
 		return fetch(url, {
@@ -29,6 +35,7 @@ class HttpService{
 			method: 'PUT',
 			body: JSON.stringify(dado)
 		})
-		.then(res => this._handleErrors(res));
+		.then(res => this._handleErrors(res))
+		.then(res => res.json());
 	}
 }

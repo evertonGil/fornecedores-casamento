@@ -29,8 +29,8 @@ var FornecedoresService = function () {
 						}
 						return 0;
 					}).map(function (objeto) {
-
 						var listaCardapios = new Cardapios();
+						var listaAnexos = new Anexos();
 
 						objeto.cardapios.map(function (item) {
 							return new Cardapio(item.nome, item.valorPorPessoa, item.aluguel, item.dj, item.decoracao, convidados);
@@ -38,7 +38,15 @@ var FornecedoresService = function () {
 							listaCardapios.adiciona(cardapio);
 						});
 
-						var forn = new Fornecedor(objeto._id, objeto.nome, objeto.qtdMax, objeto.local, objeto.tipo, objeto.observacoes, listaCardapios, objeto.link);
+						objeto.anexos.map(function (item) {
+							//console.log(item.link);
+							return new Anexo(item.link);
+						}).forEach(function (anexo) {
+							listaAnexos.adiciona(anexo);
+							//console.log(listaAnexos);
+						});
+
+						var forn = new Fornecedor(objeto._id, objeto.nome, objeto.qtdMax, objeto.local, objeto.tipo, objeto.observacoes, listaCardapios, objeto.link, listaAnexos);
 
 						return forn;
 					}));
@@ -53,8 +61,10 @@ var FornecedoresService = function () {
 		value: function enviarNovoFornecedor(dado) {
 			var _this2 = this;
 
+			var header = { 'content-type': 'application/json' };
+
 			return new Promise(function (resolve, reject) {
-				_this2._http.post('v1/fornecedores', dado).then(function (res) {
+				_this2._http.post('v1/fornecedores', JSON.stringify(dado), header).then(function (res) {
 					return resolve(res);
 				}).catch(function (err) {
 					//console.log(err);
@@ -68,6 +78,7 @@ var FornecedoresService = function () {
 			var _this3 = this;
 
 			return new Promise(function (resolve, reject) {
+
 				_this3._http.put('v1/fornecedores/' + id, dado).then(function (res) {
 					return resolve(res);
 				}).catch(function (err) {
@@ -82,6 +93,7 @@ var FornecedoresService = function () {
 			var _this4 = this;
 
 			return new Promise(function (resolve, reject) {
+
 				_this4._http.delete('v1/fornecedores/' + id).then(function (res) {
 					return resolve(res);
 				}).catch(function (err) {
@@ -109,9 +121,11 @@ var FornecedoresService = function () {
 		value: function adicionaTipo(dado) {
 			var _this6 = this;
 
+			var header = { 'content-type': 'application/json' };
+
 			return new Promise(function (resolve, reject) {
-				//console.log("adiciona tipo", this);
-				_this6._http.post('v1/tipofornecedor', dado).then(function (res) {
+
+				_this6._http.post('v1/tipofornecedor', JSON.stringify(dado), header).then(function (res) {
 					return resolve(res);
 				}).catch(function (err) {
 					reject(err);
@@ -137,12 +151,54 @@ var FornecedoresService = function () {
 		value: function adicionaLocal(dado) {
 			var _this8 = this;
 
+			var header = { 'content-type': 'application/json' };
+
 			return new Promise(function (resolve, reject) {
-				//console.log("adiciona local", this);
-				_this8._http.post('v1/localfornecedor', dado).then(function (res) {
+
+				_this8._http.post('v1/localfornecedor', JSON.stringify(dado), header).then(function (res) {
 					return resolve(res);
 				}).catch(function (err) {
 					reject(err);
+				});
+			});
+		}
+	}, {
+		key: 'sobeAnexo',
+		value: function sobeAnexo(dado, subDiretorio, fileName, idfornecedor) {
+			var _this9 = this;
+
+			var header = {
+				'content-type': 'application/octet-stream',
+				'Accept': 'application/json',
+				'filename': fileName,
+				'subdiretorio': subDiretorio,
+				'idfornecedor': idfornecedor
+			};
+
+			return new Promise(function (resolve, reject) {
+				//console.log("adiciona local", this);
+				_this9._http.post('v1/upload', dado, header).then(function (res) {
+					return resolve(res);
+				}).catch(function (err) {
+					reject(err);
+				});
+			});
+		}
+	}, {
+		key: 'deletaAnexo',
+		value: function deletaAnexo(arquivo, subdir, idFornecedor) {
+			var _this10 = this;
+
+			console.log("idFornecedor", idFornecedor);
+			var header = {
+				idfornecedor: idFornecedor
+			};
+			return new Promise(function (resolve, reject) {
+				_this10._http.delete('v1/upload/' + subdir + '/' + arquivo, header).then(function (res) {
+					return resolve(res);
+				}).catch(function (err) {
+					console.log(err);
+					reject('Não foi possível deletar os fornecedores.');
 				});
 			});
 		}

@@ -95,6 +95,7 @@ class FornecedoresController{
 		let promisse = this._consultaDB.obterListaFornecedores(this._convidados.value);
 		promisse
 		.then(res => res.forEach(fornecedor => 	{
+		
 			this._listaDeFornecedores.adiciona(fornecedor);
 		}))
 		.then(() =>{

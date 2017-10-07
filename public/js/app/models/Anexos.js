@@ -4,35 +4,36 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Cardapios = function () {
-	function Cardapios(lista) {
-		_classCallCheck(this, Cardapios);
+var Anexos = function () {
+    function Anexos(lista) {
+        _classCallCheck(this, Anexos);
 
-		this._lista = lista ? lista : [];
-	}
+        this._lista = lista ? lista : [];
+    }
 
-	_createClass(Cardapios, [{
-		key: "adiciona",
-		value: function adiciona(cardapio) {
-			this._lista.push(cardapio);
-		}
-	}, {
-		key: "exclui",
-		value: function exclui(index) {
-			this._lista.splice(index, 1);
-		}
-	}, {
-		key: "limpa",
-		value: function limpa() {
-			this._lista = [];
-		}
-	}, {
-		key: "lista",
-		get: function get() {
-			return [].concat(this._lista);
-		}
-	}]);
+    _createClass(Anexos, [{
+        key: "adiciona",
+        value: function adiciona(anexo) {
+            //console.log("adiciona");
+            this._lista.push(anexo);
+        }
+    }, {
+        key: "exclui",
+        value: function exclui(index) {
+            this._lista.splice(index, 1);
+        }
+    }, {
+        key: "limpa",
+        value: function limpa() {
+            this._lista = [];
+        }
+    }, {
+        key: "lista",
+        get: function get() {
+            return [].concat(this._lista);
+        }
+    }]);
 
-	return Cardapios;
+    return Anexos;
 }();
-//# sourceMappingURL=Cardapios.js.map
+//# sourceMappingURL=Anexos.js.map

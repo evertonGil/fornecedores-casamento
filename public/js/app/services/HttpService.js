@@ -12,7 +12,10 @@ var HttpService = function () {
 	_createClass(HttpService, [{
 		key: '_handleErrors',
 		value: function _handleErrors(res) {
-			if (!res.ok) throw new Error(res.statusText);
+			if (!res.ok) {
+				console.log("errors disparado por HttpService");
+				throw new Error(res.statusText);
+			}
 			return res;
 		}
 	}, {
@@ -28,26 +31,31 @@ var HttpService = function () {
 		}
 	}, {
 		key: 'post',
-		value: function post(url, dado) {
+		value: function post(url, dado, header) {
 			var _this2 = this;
 
 			return fetch(url, {
-				headers: { 'content-type': 'application/json' },
+				headers: header,
 				method: 'POST',
-				body: JSON.stringify(dado)
+				body: dado
 			}).then(function (res) {
 				return _this2._handleErrors(res);
+			}).then(function (res) {
+				return res.json();
 			});
 		}
 	}, {
 		key: 'delete',
-		value: function _delete(url) {
+		value: function _delete(url, header) {
 			var _this3 = this;
 
 			return fetch(url, {
-				method: 'DELETE'
+				method: 'DELETE',
+				headers: header
 			}).then(function (res) {
 				return _this3._handleErrors(res);
+			}).then(function (res) {
+				return res.json();
 			});
 		}
 	}, {
@@ -61,6 +69,8 @@ var HttpService = function () {
 				body: JSON.stringify(dado)
 			}).then(function (res) {
 				return _this4._handleErrors(res);
+			}).then(function (res) {
+				return res.json();
 			});
 		}
 	}]);

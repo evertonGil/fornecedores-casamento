@@ -1,5 +1,5 @@
 {
-  "name": "ForncedoresCasamento",
+  "name": "forncedores-casamento",
   "version": "1.0.0",
   "description": "App para cadastro e analise de fornecedores",
   "main": "index.js",
@@ -9,7 +9,7 @@
   "scripts": {
     "start": "node app",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "mongod | nodemon app",
+    "build": " concurrently  \"mongod\" \" set NODE_ENV = teste\" \"nodemon app\"",
     "watch": "babel public/js/app-es6 -d public/js/app --source-maps --watch"
   },
   "author": "alberto",
@@ -30,6 +30,7 @@
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
+    "concurrently": "^3.5.0",
     "mocha": "^3.5.1",
     "supertest": "^3.0.0"
   }

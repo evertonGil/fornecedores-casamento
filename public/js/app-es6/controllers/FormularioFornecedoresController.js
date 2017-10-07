@@ -11,6 +11,19 @@ class FormularioFornecedoresController{
 		this._conectaDB = new FornecedoresService();
 
 		this._validacoes = new Validacoes();
+		
+
+		let fileDrag = document.querySelector("#filedrag");
+
+		this.dragAndDropView = new DragAndDropView($select("#filedrag"));
+		this.dragAndDropView.update("finalizado");
+
+		filedrag.addEventListener("dragover", this.fileDragHover, false);
+		filedrag.addEventListener("dragenter", this.fileDragHover, false);
+		filedrag.addEventListener("dragstart", this.fileDragHover, false);
+		filedrag.addEventListener("dragend", this.fileDragHover, false);
+		filedrag.addEventListener("dragleave", this.fileDragHover, false);
+		filedrag.addEventListener("drop", this.anexaArquivos.bind(this), false);
 	}
 
 	init(cb){
@@ -32,17 +45,40 @@ class FormularioFornecedoresController{
 			new Cardapios(),
 			new FormCardapioView(document.querySelector("#cardapiosView")),
 			'adiciona', 'exclui', 'limpa');
+
+		this._fornecedor.anexos =  new Bind(
+				new Anexos(),
+				new ListaAnexosView(document.querySelector("#listaAnexosView")),
+				'adiciona', 'exclui', 'limpa');
+
+		let formUpload = document.querySelector(".arquivos-anexos");
+
+		
+		
+
 		//console.log('init.fornecedor.cardapios.lista', this._fornecedor.cardapios.lista);
 		this._easyAutocomplete("/v1/tipofornecedor", "#fornecedorView #tipo");
 		this._easyAutocomplete("/v1/localfornecedor", "#fornecedorView #local");
 		
-		console.log($select('#fornecedorView #nome'));
+		//console.log($select('#fornecedorView #nome'));
 		if(cb){
 			cb();
 						
 		}
+
+
+		///console.log("id", this._fornecedor);
+		if(this._fornecedor._id){
+			
+			formUpload.classList.add("aberto");	
+			
+		}
+		else{
+			formUpload.classList.remove("aberto");	
+		}
 		
 	}
+
 	end(){
 
 		$('.modal').modal("hide");
@@ -78,14 +114,19 @@ class FormularioFornecedoresController{
 			let listaFornecedores = fornecedoresController._listaDeFornecedores.lista;
 
 			listaFornecedores.forEach((item, index, arr) =>{
-
+				
 				if(item._id == id){
-					
+					//console.log(item);
 					item.cardapios.lista.forEach((cardapio, index) =>{
 						this._fornecedor.cardapios.adiciona(cardapio);
 					});
 
-					this._fornecedor.setaValores(item.id, item.nome, item.qtdMax, item.local, item.tipo, item.observacoes, this._fornecedor.cardapios, item.link);
+					item.anexos.lista.forEach((anexo, index) =>{
+						this._fornecedor.anexos.adiciona(anexo);
+					});
+
+					this._fornecedor.setaValores(item.id, item.nome, item.qtdMax, item.local, item.tipo, item.observacoes, this._fornecedor.cardapios, item.link, this._fornecedor.anexos);
+							
 				}
 			});
 			
@@ -98,6 +139,90 @@ class FormularioFornecedoresController{
 		event.preventDefault();
 		let cardapio = new Cardapio();
 		this._fornecedor.cardapios.adiciona(cardapio);
+	}
+
+	anexaArquivos(event){
+		this.fileDragHover(event);
+
+		let ListaDeArquivos = event.target.files || event.dataTransfer.files;
+		//console.log("ListaDeArquivos: ", ListaDeArquivos);
+
+		this.enviaAnexos.call(this, ListaDeArquivos);	
+	}
+
+	fileDragHover(event) {
+		event.preventDefault();
+		//console.log(event);
+
+		if(event.target.id == "filedrag"){
+			event.target.className = (event.type == "dragover" ? "hover" : "");
+		}
+		if(event.path[1].id == "filedrag"){
+			event.path[1].className = (event.type == "dragover" ? "hover" : "");
+		}
+		
+	}
+
+	enviaAnexos(files){
+		//console.log("1 this:", this,"files:", files);
+		this.dragAndDropView.update("emProgresso");
+		for(var i = 0; i < files.length; i++){
+			let leitor = new FileReader();
+			let iterador = i;
+			leitor.readAsArrayBuffer(files[i]);
+			//console.log("2 this:", this,"files:", files);
+			leitor.onload = progressEvent =>{
+				//console.log("3 this:", this,"files:", files);
+				let promise = this._conectaDB.sobeAnexo(leitor.result, this._fornecedor.id, files[iterador].name, this._fornecedor.id);
+				promise
+				.then(res =>{
+					console.log(res);
+					let anexo = new Anexo(res.statusFile.pathFile);
+					if(res.statusDB.nModified > 0){
+						this._fornecedor.anexos.adiciona(anexo);
+						fornecedoresController.importa();
+						this._mensagem.novaMsg('Anexo adicionado com sucesso.', "success", 3400);
+					}
+					else{
+						
+						this._mensagem.novaMsg('Anexo Atualizado com sucesso.', "success", 3400);
+					}
+
+					this.dragAndDropView.update("finalizado");					
+					
+				})
+				.catch(err =>{
+					this._mensagem.novaMsg('Não foi possível adicionar anexo.', "danger", 4400);
+					console.log(err);
+				})
+			};
+		}
+		
+		
+	}
+
+	removeAnexo(event, index){	
+
+		event.preventDefault();
+
+		let anexo = this._fornecedor.anexos.lista[index];
+
+		console.log("Arquivo:", anexo.nome,"Sub-diretorio:", anexo.subDiretorio, "_id:", this._fornecedor.id);
+	
+
+		let promise = this._conectaDB.deletaAnexo(anexo.nome, anexo.subDiretorio, this._fornecedor.id);
+		promise
+		.then(res =>{
+			console.log("res:", res);
+			this._fornecedor.anexos.exclui(index);
+		})
+		.catch(err => {
+			this._mensagem.novaMsg('Não foi possível adicionar anexo.', "danger", 4400);
+			console.log(err);
+		});
+
+		fornecedoresController.importa();
+
 	}
 
 	removeCardapio(event, index){
@@ -136,7 +261,6 @@ class FormularioFornecedoresController{
 		}
 	}
 
-
 	adiciona(event){
 
 		event.preventDefault();
@@ -168,8 +292,19 @@ class FormularioFornecedoresController{
 			
 			return cardapio;
 		});
+		fornecedor.anexos.lista.forEach((anexo, i, arr) =>{
+			
+			let propValidas = [ 'link'];
+
+			for(var prop in anexo){
+				if( !propValidas.includes(prop)) Object.defineProperty(anexo, prop, {enumerable: false})
+			}
+			
+			return anexo;
+		});
 
 		fornecedor.cardapios = fornecedor.cardapios.lista;
+		fornecedor.anexos = fornecedor.anexos.lista;
 
 		let promise;
 

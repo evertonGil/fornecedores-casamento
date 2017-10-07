@@ -5,7 +5,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Fornecedor = function () {
-	function Fornecedor(id, nome, qtdMax, local, tipo, observacoes, listaCardapios, link) {
+	function Fornecedor(id, nome, qtdMax, local, tipo, observacoes, listaCardapios, link, anexos) {
 		_classCallCheck(this, Fornecedor);
 
 		this._id = id ? id : '';
@@ -17,11 +17,12 @@ var Fornecedor = function () {
 		this.link = link ? link : '';
 		//this.cardapios = listaCardapios ? listaCardapios : [];
 		this.cardapios = listaCardapios ? new Cardapios(listaCardapios.lista) : new Cardapios();
+		this.anexos = anexos ? new Anexos(anexos.lista) : new Anexos();
 	}
 
 	_createClass(Fornecedor, [{
 		key: 'setaValores',
-		value: function setaValores(id, nome, qtdMax, local, tipo, observacoes, listaCardapios, link) {
+		value: function setaValores(id, nome, qtdMax, local, tipo, observacoes, listaCardapios, link, anexos) {
 			this._id = id ? id : '';
 			this.nome = nome ? nome : '';
 			this.qtdMax = qtdMax ? parseFloat(qtdMax) : 0;
@@ -30,6 +31,7 @@ var Fornecedor = function () {
 			this.observacoes = observacoes ? observacoes : '';
 			this.cardapios = listaCardapios ? listaCardapios : new Cardapios();
 			this.link = link ? link : '';
+			this.anexos = anexos ? anexos : new Anexos();
 			//console.log("Fornecedor.cardapios:", listaCardapios)
 		}
 	}, {
