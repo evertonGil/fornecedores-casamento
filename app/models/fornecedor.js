@@ -29,6 +29,5 @@ var schema = mongoose.Schema({
 		type: Array,
 	}
 });
-console.log("schema Fornecedor registrado");
 mongoose.model('Fornecedores', schema);
 

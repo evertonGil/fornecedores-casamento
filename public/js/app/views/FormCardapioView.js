@@ -23,7 +23,7 @@ var FormCardapioView = function (_View) {
 
 			/*		
    console.log('model', model.lista);
-   		model.lista.forEach((cardapio, index, array) =>{
+   	model.lista.forEach((cardapio, index, array) =>{
    	console.log('cardapio', cardapio );
    });
    */
