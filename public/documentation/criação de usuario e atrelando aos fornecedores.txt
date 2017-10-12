@@ -1,0 +1,17 @@
+db.fornecedores.update(
+    {"usuario.usuarioId": { $ne: "59df81773f1d50c9ff867f2e"}},
+    {
+        $set:{
+            usuario:{
+                'usuarioId': '59dfeb013f1d50c9ff867f2f',
+                'login': 'teste'
+            }
+        }
+    },
+    {
+        multi: true
+    }
+    )
+
+db.usuarios.insert({'login': 'teste', 'senha': '123456'})
+

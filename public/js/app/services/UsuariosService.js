@@ -21,11 +21,11 @@ var UsuariosService = function () {
 			};
 
 			return new Promise(function (resolve, reject) {
-				_this._http.post('v1/login', dado, header).then(function (res) {
+				_this._http.post('v1/login', JSON.stringify(dado), header).then(function (res) {
+
 					window.location = "/";
 				}).catch(function (err) {
-					console.log(err);
-					reject('Login e senha invalidos.');
+					reject(err);
 				});
 			});
 		}

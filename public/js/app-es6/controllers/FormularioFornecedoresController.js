@@ -87,11 +87,24 @@ class FormularioFornecedoresController{
 	}
 
 	_easyAutocomplete(url, classe){
+			let header = {}
+			let token = null;
+
+			if(window.sessionStorage.token){
+				token = window.sessionStorage.token;
+			}
+
+			if(token){
+				header['x-access-token'] = token;
+			}
+
 		var options = {
 			url: url,
 			getValue: function(element) {
-				console.log(this, element.nome);
 				return Captalize.string(element.nome);
+			},
+			ajaxSettings: {
+				'headers' : header
 			},
 			list: {
 				match: {
@@ -176,7 +189,7 @@ class FormularioFornecedoresController{
 				let promise = this._conectaDB.sobeAnexo(leitor.result, this._fornecedor.id, files[iterador].name, this._fornecedor.id);
 				promise
 				.then(res =>{
-					console.log(res);
+					//console.log(res);
 					let anexo = new Anexo(res.statusFile.pathFile);
 					if(res.statusDB.nModified > 0){
 						this._fornecedor.anexos.adiciona(anexo);
@@ -333,7 +346,7 @@ class FormularioFornecedoresController{
 		})
 		.catch(err => {
 			console.log(err);
-			trataErrorsInput(err);
+			trataErrorsInput(err.json());
 			this._mensagem.novaMsg('Não foi possível cadastrar o fornecedor.', "danger", 2400);
 		});
 

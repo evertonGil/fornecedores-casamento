@@ -157,11 +157,9 @@ class FornecedoresController{
 		let promisse = this._consultaDB.deletaFornecedorPorId(id);
 
 		promisse
-		.then((verdadeiro) => {
-			if(verdadeiro){
+		.then((res) => {
 				this._mensagem.novaMsg("Item excluído da lista!", "success", 2400);
 				this._listaDeFornecedores.exclui(index);	
-			}
 		})
 		.catch(err => this._mensagem.novaMsg(err, "danger", 2400));
 		

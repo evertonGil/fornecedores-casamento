@@ -1,0 +1,4 @@
+
+
+
+db.fornecedores.aggregate([ { $match: { "usuario.login": "everton"}}, { $group: { "nome": "usuario.login"}} ])

@@ -3,7 +3,15 @@
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="Content-Language" content="pt-br">
-    <title>Lista de Fornecedores</title>
+	<title>Lista de Fornecedores</title>
+	
+	<link rel="apple-touch-icon" sizes="60x60" href="images/favicon/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="images/favicon/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="images/favicon/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <link rel="stylesheet" href="css/font-awesome.css">
     <link rel="stylesheet" href="css/style.css">
@@ -14,7 +22,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 	<script src="js/app/polyfill/es6.js"></script>
 	<script src="js/app/polyfill/proxy.min.js"></script>
-	<script src="/node_modules/babel-polyfill/dist/polyfill.js"></script>
+	<script src="js/app/polyfill/polyfill.min.js"></script>
 
 </head>
 <body>
@@ -198,6 +206,9 @@
 
 
 <script>
+	if(!window.sessionStorage.token){
+			window.location = "/login.html";
+	}
 	var fornecedoresController = new FornecedoresController();
 	var cadastroController = new FormularioFornecedoresController();	
 </script>

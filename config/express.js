@@ -10,6 +10,13 @@ module.exports = function(){
 	app.set('view engine', 'ejs');
 	app.set('views', './app/views');
 
+	if(process.env.NODE_ENV != 'production'){
+		app.set('secret', 'meu pai ta maluco');
+	}
+	else{
+		app.set('secret', process.env.segredo);
+	}
+
     app.use(morgan('common', {
         stream:{
             write: function(message){
@@ -26,6 +33,7 @@ module.exports = function(){
 		.include('models')
         .then('api')
 		.then('services')
+		.then('routes/login.js')
 		.then('routes')
         .into(app);
 
@@ -36,7 +44,7 @@ module.exports = function(){
     app.use(function(erro, req, res, next){
 		console.log(erro);
 		logger.log('error', erro);
-    	if(process.env.NODE_ENV = 'prodution'){
+    	if(process.env.NODE_ENV = 'production'){
     		res.status(500).render('erros/500');
     	}    	
     	next();

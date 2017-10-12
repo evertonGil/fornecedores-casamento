@@ -164,11 +164,9 @@ var FornecedoresController = function () {
 
 			var promisse = this._consultaDB.deletaFornecedorPorId(id);
 
-			promisse.then(function (verdadeiro) {
-				if (verdadeiro) {
-					_this2._mensagem.novaMsg("Item excluído da lista!", "success", 2400);
-					_this2._listaDeFornecedores.exclui(index);
-				}
+			promisse.then(function (res) {
+				_this2._mensagem.novaMsg("Item excluído da lista!", "success", 2400);
+				_this2._listaDeFornecedores.exclui(index);
 			}).catch(function (err) {
 				return _this2._mensagem.novaMsg(err, "danger", 2400);
 			});

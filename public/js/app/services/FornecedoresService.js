@@ -62,7 +62,7 @@ var FornecedoresService = function () {
 			var _this2 = this;
 
 			var header = { 'content-type': 'application/json' };
-
+			//console.log('dados', dado, 'header', header);
 			return new Promise(function (resolve, reject) {
 				_this2._http.post('v1/fornecedores', JSON.stringify(dado), header).then(function (res) {
 					return resolve(res);
@@ -77,9 +77,11 @@ var FornecedoresService = function () {
 		value: function editaFornecedor(id, dado) {
 			var _this3 = this;
 
+			var header = { 'content-type': 'application/json' };
+
 			return new Promise(function (resolve, reject) {
 
-				_this3._http.put('v1/fornecedores/' + id, dado).then(function (res) {
+				_this3._http.put('v1/fornecedores/' + id, dado, header).then(function (res) {
 					return resolve(res);
 				}).catch(function (err) {
 					//console.log(err);
@@ -92,9 +94,11 @@ var FornecedoresService = function () {
 		value: function deletaFornecedorPorId(id) {
 			var _this4 = this;
 
+			var header = {};
+
 			return new Promise(function (resolve, reject) {
 
-				_this4._http.delete('v1/fornecedores/' + id).then(function (res) {
+				_this4._http.delete('v1/fornecedores/' + id, header).then(function (res) {
 					return resolve(res);
 				}).catch(function (err) {
 					console.log(err);
@@ -190,9 +194,7 @@ var FornecedoresService = function () {
 			var _this10 = this;
 
 			console.log("idFornecedor", idFornecedor);
-			var header = {
-				idfornecedor: idFornecedor
-			};
+			var header = { idfornecedor: idFornecedor };
 			return new Promise(function (resolve, reject) {
 				_this10._http.delete('v1/upload/' + subdir + '/' + arquivo, header).then(function (res) {
 					return resolve(res);

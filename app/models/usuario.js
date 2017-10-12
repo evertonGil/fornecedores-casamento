@@ -5,9 +5,9 @@ var schema = mongoose.Schema({
 		required:true
 	},
 	senha:{
-		type: Number,
+		type: String,
 		required:true
 	}
 });
-mongoose.model('Usuario', schema);
+mongoose.model('Usuario', schema, 'usuarios');
 

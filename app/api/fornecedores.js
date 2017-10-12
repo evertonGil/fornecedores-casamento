@@ -4,8 +4,10 @@ var logger = require('../services/logger');
 var api = {};
 
 api.lista = function(req, res){
+		console.log(req.usuario);
+
 		return model
-			.find({})
+			.find({'usuario.usuarioId' : req.usuario.usuarioId})
 			.sort({nome: 'asc'})
 			.then(function(fornecedores){
 				res.json(fornecedores);
@@ -35,6 +37,7 @@ api.buscaPorId = function(req, res){
 }
 
 api.adiciona = function(req, res){
+		req.body.usuario = {'usuarioId' : req.usuario.usuarioId,'login' : req.usuario.login};
 		model
 			.create(req.body)
 			.then(function(fornecedor){
@@ -51,7 +54,7 @@ api.deleta = function(req, res){
 	.remove({_id : req.params.id})
 	.then(function(){
 		logger.log('info', `item excluido na collection Fornecedores: ${req.params.id}`);
-		res.status(204).send({});
+		res.sendStatus(204)
 	}, function(error){
 		//console.log(error)
 		logger.log('error', error);
@@ -59,6 +62,9 @@ api.deleta = function(req, res){
 	})
 }
 api.atualizaPorId = function(req, res){
+
+	req.body.usuario = {'usuarioId' : req.usuario.usuarioId,'login' : req.usuario.login};
+
 	model
 	.findByIdAndUpdate(req.params.id, req.body)
 	.then(function(fornecedor){

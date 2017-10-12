@@ -4,6 +4,11 @@ class LoginController{
 		this.login = $select("#login");
 		this.senha = $select("#senha");
 		this.form = $select("#form-login");
+		this.usuarioService = new UsuariosService();
+		this.mensagem =  new Bind(
+			new Mensagem(),
+			new MensagemView($select("#mensagemView")),
+			'novaMsg');
 
 		this.init();
 
@@ -11,17 +16,28 @@ class LoginController{
 
 	init(){
 
-		this.form.addEventListener('submit', function(event){
-			event.preventDefault();
-
-			
-		});
-
+		this.form.onsubmit = event => this.enviaLogin.call(this, event);
 	}
-	enviaLogin(){
-		
+	pegaDadoForm(){
+		let loginVal = this.login.value;
+		let senhaVal = this.senha.value;
 
+		let json = {'login': loginVal,'senha': senhaVal};
+		return json;
+	}
+	enviaLogin(event){
+		//console.log('this', this, 'event:', event);
+		event.preventDefault();
 		
+		let promise = this.usuarioService.SubmeterLogin(this.pegaDadoForm());
+		promise
+		.then(res =>{
+			window.location('/');
+		})
+		.catch(err =>{
+			console.log(err);
+			this.mensagem.novaMsg('login e senha invalidos.', "danger", 4400);
+		});
 	}
 
 }

@@ -37,7 +37,7 @@ var Validacoes = function () {
       let div = document.createElement("div");
       div.classList.add("tooltip", "bs-tooltip-top");
       div.innerHTML = item.getAttribute("title");
-      	pai.appendChild(div);
+      		pai.appendChild(div);
       */
 						$(item).popover({
 							placement: 'bottom',

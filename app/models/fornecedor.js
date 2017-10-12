@@ -17,16 +17,24 @@ var schema = mongoose.Schema({
 		required:true
 	},
 	observacoes:{
-		type: String,
+		type: String
 	},
 	link:{
-		type: String,
+		type: String
 	},
 	cardapios: {
-		type: Array,
+		type: Array
 	},
 	anexos: {
-		type: Array,
+		type: Array
+	},
+	usuario:{
+		login: {
+			type: String
+		},
+		usuarioId: {
+			type: String
+		}
 	}
 });
 mongoose.model('Fornecedores', schema);

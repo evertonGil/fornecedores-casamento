@@ -7,15 +7,15 @@ class UsuariosService{
 		let header = {
 			'content-type': 'application/json'
 		}
-
+		
 		return new Promise ((resolve, reject) =>{
-			this._http.post('v1/login', dado, header)
+			this._http.post('v1/login', JSON.stringify(dado), header)
 			.then(res =>{
+				
 				window.location = "/";
 			})
 			.catch(err =>{
-				console.log(err);
-			    reject('Login e senha invalidos.')
+			    reject(err)
 			});
 
 		})

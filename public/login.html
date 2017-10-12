@@ -3,7 +3,21 @@
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="Content-Language" content="pt-br">
-    <title>Lista de Fornecedores</title>
+	<title>Lista de Fornecedores</title>
+	<link rel="apple-touch-icon" sizes="57x57" href="images/favicon/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="images/favicon/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/favicon/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="images/favicon/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/favicon/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="images/favicon/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="images/favicon/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="images/favicon/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="images/favicon/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="images/favicon/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
+	
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <link rel="stylesheet" href="css/font-awesome.css">
     <link rel="stylesheet" href="css/style.css">
@@ -14,7 +28,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 	<script src="js/app/polyfill/es6.js"></script>
 	<script src="js/app/polyfill/proxy.min.js"></script>
-	<script src="/node_modules/babel-polyfill/dist/polyfill.js"></script>
+	<script src="js/app/polyfill/polyfill.min.js"></script>
 
 </head>
 <body>
@@ -44,6 +58,7 @@
 	<script src="js/app/polyfill/fetch.js" ></script>
 
 	<script src="js/app/models/Mensagem.js" ></script>
+	<script src="/js/app/helpers/Bind.js" ></script>
 
 	<script src="js/app/controllers/LoginController.js" ></script>
 
@@ -52,7 +67,8 @@
 
 	<script src="js/app/services/ProxyFactory.js" ></script>
 	<script src="js/app/services/HttpService.js" ></script>
-	<script src="js/app/services/FornecedoresService.js" ></script>
+	<script src="js/app/services/UsuariosService.js" ></script>
+	
 
 
 <script>

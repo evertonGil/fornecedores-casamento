@@ -56,7 +56,7 @@ class FornecedoresService{
 	enviarNovoFornecedor(dado){
 
 		let header = {'content-type': 'application/json'};
-
+		//console.log('dados', dado, 'header', header);
 		return new Promise((resolve, reject) => {
 			this._http.post('v1/fornecedores', JSON.stringify(dado), header)
 			.then(res => resolve(res))
@@ -69,9 +69,11 @@ class FornecedoresService{
 
 	editaFornecedor(id, dado){
 
+		let header = {'content-type': 'application/json'};
+
 		return new Promise((resolve, reject) => {
 
-			this._http.put(`v1/fornecedores/${id}`, dado)
+			this._http.put(`v1/fornecedores/${id}`, dado, header)
 			.then(res => resolve(res))
 			.catch(err =>{
 				//console.log(err);
@@ -81,10 +83,11 @@ class FornecedoresService{
 	}
 
 	deletaFornecedorPorId(id){
+		let header = {};
 
 		return new Promise((resolve, reject) =>{
 
-			this._http.delete(`v1/fornecedores/${id}`)
+			this._http.delete(`v1/fornecedores/${id}`, header)
 			.then(res => resolve(res))
 			.catch(err =>{
 				console.log(err);
@@ -169,9 +172,7 @@ class FornecedoresService{
 
 	deletaAnexo(arquivo, subdir, idFornecedor){
 		console.log("idFornecedor", idFornecedor);
-		let header = {
-			idfornecedor: idFornecedor
-		}
+		let header = { idfornecedor: idFornecedor }
 		return new Promise((resolve, reject) =>{
 			this._http.delete(`v1/upload/${subdir}/${arquivo}`, header)
 			.then(res => resolve(res))

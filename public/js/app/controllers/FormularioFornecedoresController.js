@@ -77,11 +77,24 @@ var FormularioFornecedoresController = function () {
 	}, {
 		key: "_easyAutocomplete",
 		value: function _easyAutocomplete(url, classe) {
+			var header = {};
+			var token = null;
+
+			if (window.sessionStorage.token) {
+				token = window.sessionStorage.token;
+			}
+
+			if (token) {
+				header['x-access-token'] = token;
+			}
+
 			var options = {
 				url: url,
 				getValue: function getValue(element) {
-					console.log(this, element.nome);
 					return Captalize.string(element.nome);
+				},
+				ajaxSettings: {
+					'headers': header
 				},
 				list: {
 					match: {
@@ -174,7 +187,7 @@ var FormularioFornecedoresController = function () {
 					//console.log("3 this:", this,"files:", files);
 					var promise = _this2._conectaDB.sobeAnexo(leitor.result, _this2._fornecedor.id, files[iterador].name, _this2._fornecedor.id);
 					promise.then(function (res) {
-						console.log(res);
+						//console.log(res);
 						var anexo = new Anexo(res.statusFile.pathFile);
 						if (res.statusDB.nModified > 0) {
 							_this2._fornecedor.anexos.adiciona(anexo);
@@ -325,7 +338,7 @@ var FormularioFornecedoresController = function () {
 				_this5.helperCadastraSeNaoTiver(_this5._conectaDB.listaLocal(), fornecedor.local, _this5._conectaDB, _this5._conectaDB.adicionaLocal.bind(_this5._conectaDB));
 			}).catch(function (err) {
 				console.log(err);
-				trataErrorsInput(err);
+				trataErrorsInput(err.json());
 				_this5._mensagem.novaMsg('Não foi possível cadastrar o fornecedor.', "danger", 2400);
 			});
 		}
