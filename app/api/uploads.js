@@ -54,9 +54,9 @@ api.adiciona = function(req, res){
         req.pipe(fs.createWriteStream(pathArquivo))
         .on('finish', function(){
             console.log("arquivo criado via post: " + pathArquivo);
-            setTimeout(function(){
-                res.status(201).send({"statusFile":{"pathFile": urlPublica , "jaExistia": jaExistia}, "statusDB": respostaDb});
-            }, 5000);
+            
+            res.status(201).send({"statusFile":{"pathFile": urlPublica , "jaExistia": jaExistia}, "statusDB": respostaDb});
+            
         });
 
     }, function(error){
