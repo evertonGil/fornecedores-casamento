@@ -41,7 +41,7 @@ var LoginController = function () {
 		value: function enviaLogin(event) {
 			var _this2 = this;
 
-			//console.log('this', this, 'event:', event);
+			console.log('this', this, 'event:', event);
 			event.preventDefault();
 
 			alert('um tempo');
