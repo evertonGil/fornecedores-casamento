@@ -44,6 +44,7 @@ var LoginController = function () {
 			//console.log('this', this, 'event:', event);
 			event.preventDefault();
 
+			alert('um tempo');
 			var promise = this.usuarioService.SubmeterLogin(this.pegaDadoForm());
 			promise.then(function (res) {
 				window.location('/');

@@ -26,9 +26,11 @@ class LoginController{
 		return json;
 	}
 	enviaLogin(event){
+		
 		//console.log('this', this, 'event:', event);
 		event.preventDefault();
 		
+		alert('um tempo');
 		let promise = this.usuarioService.SubmeterLogin(this.pegaDadoForm());
 		promise
 		.then(res =>{
