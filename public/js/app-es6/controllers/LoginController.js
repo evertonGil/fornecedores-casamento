@@ -30,16 +30,19 @@ class LoginController{
 		console.log('this', this, 'event:', event);
 		event.preventDefault();
 
-		alert('um tempo');
+		
 		let promise = this.usuarioService.SubmeterLogin(this.pegaDadoForm());
 		promise
 		.then(res =>{
 			window.location('/');
 		})
+		
 		.catch(err =>{
 			console.log(err);
 			this.mensagem.novaMsg('login e senha invalidos.', "danger", 4400);
 		});
+
+		return alert('um tempo');
 	}
 
 }

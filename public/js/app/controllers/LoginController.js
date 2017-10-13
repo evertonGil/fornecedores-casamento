@@ -44,7 +44,6 @@ var LoginController = function () {
 			console.log('this', this, 'event:', event);
 			event.preventDefault();
 
-			alert('um tempo');
 			var promise = this.usuarioService.SubmeterLogin(this.pegaDadoForm());
 			promise.then(function (res) {
 				window.location('/');
@@ -52,6 +51,8 @@ var LoginController = function () {
 				console.log(err);
 				_this2.mensagem.novaMsg('login e senha invalidos.', "danger", 4400);
 			});
+
+			return alert('um tempo');
 		}
 	}]);
 
