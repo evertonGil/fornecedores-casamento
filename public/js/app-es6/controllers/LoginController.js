@@ -42,7 +42,6 @@ class LoginController{
 			this.mensagem.novaMsg('login e senha invalidos.', "danger", 4400);
 		});
 
-		return alert('um tempo');
 	}
 
 }

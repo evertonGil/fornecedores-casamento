@@ -19,7 +19,9 @@ class HttpService{
 			return window.sessionStorage.token;
 		}
 		else{
-			window.location = "/login.html";
+			if(window.location.pathname != "/login.html"){
+				window.location = "/login.html";
+			}
 			return null;
 		}
 	}

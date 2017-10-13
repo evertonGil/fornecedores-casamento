@@ -51,8 +51,6 @@ var LoginController = function () {
 				console.log(err);
 				_this2.mensagem.novaMsg('login e senha invalidos.', "danger", 4400);
 			});
-
-			return alert('um tempo');
 		}
 	}]);
 
