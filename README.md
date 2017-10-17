@@ -10,6 +10,7 @@ Funcionalidades:
 - Excluir fornecedor
 - Adiciona novo locais e tipos de fornecedor automaticamente
 - Lista os fornecedores com filtro e ordenação para ajudar na comparação
+- Upload de arquivos
 - Login com uso de JWT e session storage
 
 Demonstração: https://fornecedores-casamento.herokuapp.com/
@@ -25,8 +26,9 @@ Features:
 - Form register of supplier
 - Edit supplier
 - Delete supplier
-- This auto add news Places and type of suppliers in the form resgister
-- List, filter, find supplier
+- This application auto add news places and type of suppliers in the form resgister
+- List, find and filter suppliers
+- File upload
 - Authentication based in JWT and and session storage
 
 demo: https://fornecedores-casamento.herokuapp.com/
