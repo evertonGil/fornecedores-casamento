@@ -20,6 +20,12 @@ module.exports = function () {
 
 	app.use(bodyParser.urlencoded({ extended: true }));
 	app.use(bodyParser.json());
+	
+	app.use(function (req, res, next) {
+		res.header("Access-Control-Allow-Origin", "*");
+		res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-access-token");
+		next();
+	});
 
 	consign({ cwd: 'app' })
 		.include('models')
@@ -28,12 +34,6 @@ module.exports = function () {
 		.then('routes')
 		.into(app);
 
-	app.use(function (req, res, next) {
-		res.header("Access-Control-Allow-Origin", "*");
-		res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-access-token");
-		next();
-	});
-	
 	app.use(function (req, res, next) {
 		res.status(404).render('erros/404');
 		next();
