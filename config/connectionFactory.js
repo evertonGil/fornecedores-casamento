@@ -15,7 +15,7 @@ module.exports = function (uri) {
 		conectarEm(urlConect, "prod");
 	}
 
-	conectarEm(urlConect, servidor) {
+	function conectarEm(urlConect, servidor) {
 
 		var promise = mongoose.connect(urlConect, {
 			useMongoClient: true,
